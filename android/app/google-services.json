@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "256228458394",
+    "project_id": "teaching-f6ae2",
+    "storage_bucket": "teaching-f6ae2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256228458394:android:0cbb79c9f9fa9c26b0c423",
+        "android_client_info": {
+          "package_name": "com.example.flutter_teaching"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPutgqEORmN7nsvyO5PrM5tM5qvAVTHt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

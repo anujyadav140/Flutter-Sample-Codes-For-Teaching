@@ -86,12 +86,23 @@ class _FlutterAnimationState extends State<FlutterAnimation>
       //     },
       //   ),
       // ),
+      // body: Center(
+      //   child: AnimatedBuilder(
+      //     animation: _controller,
+      //     builder: (context, child) {
+      //       return Transform.translate(
+      //         offset: Offset(200.0 * _animation.value, 0.0),
+      //         child: FlutterLogo(size: 200),
+      //       );
+      //     },
+      //   ),
+      // ),
       body: Center(
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
-            return Transform.translate(
-              offset: Offset(200.0 * _animation.value, 0.0),
+            return Transform.rotate(
+              angle: pi / 4 * _animation.value,
               child: FlutterLogo(size: 200),
             );
           },
@@ -101,19 +112,8 @@ class _FlutterAnimationState extends State<FlutterAnimation>
       //   child: AnimatedBuilder(
       //     animation: _controller,
       //     builder: (context, child) {
-      //       return Transform.rotate(
-      //         angle: pi / 4 * _animation.value,
-      //         child: FlutterLogo(size: 200),
-      //       );
-      //     },
-      //   ),
-      // ),
-      // body: Center(
-      //   child: AnimatedBuilder(
-      //     animation: _controller,
-      //     builder: (context, child) {
       //       return Transform.translate(
-      //         offset: Offset(100 * _animation.value, 100 * _animation.value),
+      //         offset: Offset(200 * _animation.value, 200 * _animation.value),
       //         child: FlutterLogo(size: 200),
       //       );
       //     },

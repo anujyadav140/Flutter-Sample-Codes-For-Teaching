@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_teaching/Widgets/animation.dart';
+import 'package:flutter_teaching/Widgets/auth.dart';
 import 'package:flutter_teaching/Widgets/buttons.dart';
 import 'package:flutter_teaching/Widgets/children.dart';
 import 'package:flutter_teaching/Widgets/gestures.dart';
 import 'package:flutter_teaching/Widgets/icons.dart';
 import 'package:flutter_teaching/Widgets/image.dart';
-
 // import 'dart:developer';
 // import 'package:flutter/rendering.dart';
 import 'package:flutter_teaching/Widgets/layout.dart';
+import 'package:flutter_teaching/Widgets/package.dart';
 import 'package:flutter_teaching/Widgets/pageview.dart';
 import 'package:flutter_teaching/Widgets/text.dart';
-
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_teaching/firebase_options.dart';
+void main() async {
   // debugPaintSizeEnabled = true;
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -37,7 +40,9 @@ class MyApp extends StatelessWidget {
       // home: const FlutterLayout(),
       // home: FlutterRowColumn(),
       // home: FlutterPageView(abc: 'Anuj',),
-      home: FlutterAnimation(),
+      // home: FlutterAnimation(),
+      // home: FlutterPackages(),
+      home: const AuthApp(),
     );
   }
 }
