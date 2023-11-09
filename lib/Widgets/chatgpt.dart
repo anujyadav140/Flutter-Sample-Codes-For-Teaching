@@ -10,7 +10,7 @@ class FlutterAi extends StatefulWidget {
 
 class _FlutterAiState extends State<FlutterAi> {
   final openAI = OpenAI.instance.build(
-    token: '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',
+    token: '',
     baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)),
     enableLog: true,
   );
