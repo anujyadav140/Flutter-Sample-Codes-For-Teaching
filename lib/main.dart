@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_teaching/Widgets/animation.dart';
 import 'package:flutter_teaching/Widgets/auth.dart';
 import 'package:flutter_teaching/Widgets/buttons.dart';
+import 'package:flutter_teaching/Widgets/chatgpt.dart';
 import 'package:flutter_teaching/Widgets/children.dart';
+import 'package:flutter_teaching/Widgets/firestore.dart';
 import 'package:flutter_teaching/Widgets/gestures.dart';
 import 'package:flutter_teaching/Widgets/icons.dart';
 import 'package:flutter_teaching/Widgets/image.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_teaching/Widgets/pageview.dart';
 import 'package:flutter_teaching/Widgets/text.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_teaching/firebase_options.dart';
+
 void main() async {
   // debugPaintSizeEnabled = true;
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -42,7 +45,9 @@ class MyApp extends StatelessWidget {
       // home: FlutterPageView(abc: 'Anuj',),
       // home: FlutterAnimation(),
       // home: FlutterPackages(),
-      home: const AuthApp(),
+      // home: const AuthApp(),
+      // home: const FirestoreTextfield(),
+      home: const FlutterAi(),
     );
   }
 }
