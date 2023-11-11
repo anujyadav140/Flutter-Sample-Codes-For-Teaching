@@ -12,7 +12,7 @@ class FlutterAi extends StatefulWidget {
 class _FlutterAiState extends State<FlutterAi> {
   late CollectionReference chatCollection;
   final openAI = OpenAI.instance.build(
-    token: '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',
+    token: '',
     baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)),
     enableLog: true,
   );
