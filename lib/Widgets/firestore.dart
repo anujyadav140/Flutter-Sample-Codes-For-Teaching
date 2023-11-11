@@ -17,7 +17,6 @@ class _FirestoreTextfieldState extends State<FirestoreTextfield> {
     final String text = _textEditingController.text.trim();
     if (text.isNotEmpty) {
       await _firestoreCollection.add({'text': text});
-      await _firestoreCollection.add({'text1': "Default"});
       _textEditingController.clear();
     }
   }

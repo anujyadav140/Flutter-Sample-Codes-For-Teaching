@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FlutterAi extends StatefulWidget {
   const FlutterAi({Key? key}) : super(key: key);
@@ -9,8 +10,9 @@ class FlutterAi extends StatefulWidget {
 }
 
 class _FlutterAiState extends State<FlutterAi> {
+  late CollectionReference chatCollection;
   final openAI = OpenAI.instance.build(
-    token: '',
+    token: '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',
     baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)),
     enableLog: true,
   );
@@ -18,13 +20,38 @@ class _FlutterAiState extends State<FlutterAi> {
   TextEditingController messageController = TextEditingController();
   List<String> chatMessages = [];
 
+  @override
+  void initState() {
+    super.initState();
+    chatCollection = FirebaseFirestore.instance.collection('chatMessages');
+
+    chatCollection
+        .orderBy('timestamp',
+            descending: false) // Order by timestamp in ascending order
+        .snapshots()
+        .listen((snapshot) {
+      setState(() {
+        chatMessages =
+            snapshot.docs.map((doc) => doc['message'].toString()).toList();
+      });
+    });
+  }
+
   void _sendMessage() {
     String userMessage = messageController.text;
     setState(() {
       chatMessages.add(userMessage);
     });
+    _addToFirestore(userMessage);
     completeText(userMessage);
     messageController.clear();
+  }
+
+  void _addToFirestore(String message) async {
+    await chatCollection.add({
+      'message': message,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
   }
 
   void completeText(String inputText) {
@@ -35,8 +62,13 @@ class _FlutterAiState extends State<FlutterAi> {
     );
 
     openAI.onCompletion(request: request).then((response) {
+      String aiResponse = response!.choices.last.text.trim();
+
+      // Add AI response to Firestore
+      _addToFirestore(aiResponse);
+
       setState(() {
-        chatMessages.add(response!.choices.last.text.toString().trim());
+        chatMessages.add(aiResponse);
       });
     });
   }
@@ -51,17 +83,17 @@ class _FlutterAiState extends State<FlutterAi> {
       body: Column(
         children: [
           Expanded(
-              child: ListView.builder(
-            itemCount: chatMessages.length,
-            itemBuilder: (context, index) {
-              bool isUserMessage = index % 2 == 0;
-              return ChatBubble(
-                message: chatMessages[index],
-                isUser: isUserMessage,
-              );
-              // return Text(chatMessages[index]);
-            },
-          )),
+            child: ListView.builder(
+              itemCount: chatMessages.length,
+              itemBuilder: (context, index) {
+                bool isUserMessage = index % 2 == 0;
+                return ChatBubble(
+                  message: chatMessages[index],
+                  isUser: isUserMessage,
+                );
+              },
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -94,7 +126,8 @@ class ChatBubble extends StatelessWidget {
   final String message;
   final bool isUser;
 
-  const ChatBubble({super.key, required this.message, required this.isUser});
+  const ChatBubble({Key? key, required this.message, required this.isUser})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
